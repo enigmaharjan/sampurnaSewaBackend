@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "\u001b[A\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D: Agile",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate:make": "knex migrate:make --knexfile ./knexfile.js",
+    "migrate:run": "knex migrate:latest --knexfile ./knexfile.js"
+  },
+  "author": "Samit Bhattarai, Suman Adhikari, Manish Shrestha, Bishant Giri, Shiva Maharjan",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt-middleware": "^1.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.19.4",
+    "multer": "^1.4.2",
+    "pg": "^7.12.1"
+  }
+}
