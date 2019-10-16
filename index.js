@@ -12,6 +12,7 @@ const userController=require('./controller/users')
 const adminController=require('./controller/admin')
 const jobController=require('./controller/job')
 const bookingController=require('./controller/booking')
+const feedbackController=require('./controller/feedback')
 
 express.use(bodyParser.json());
 express.use(cors());
@@ -19,6 +20,9 @@ const jwt=require('jsonwebtoken');
 const SECRET_KEY = 10;
 // var uploadRouter = require('./upload.js');
 express.use(Express.static(path.join(__dirname, 'public')));
+
+express.post('/api/v1/feedback', feedbackController.createFeedback);
+express.get('/api/v1/feedback', feedbackController.getFeedback);
 
 
 express.delete('/api/v1/user', userController.deleteUser);
@@ -38,26 +42,50 @@ express.post('/api/v1/authadmin', adminController.authAdmin);
 
 express.post('/api/v1/booking', bookingController.createBooking);
 express.get('/api/v1/booking', bookingController.getBooking);
-// express.get('/api/v1/booked', bookingController.getBooked);
+express.put('/api/v1/booking', bookingController.updateBooking);
 
-express.get('/api/v1/booked/:userid', getBooked);
+express.get('/api/v1/booked/:userid/:confirmation', getBooked);
 express.get('/api/v1/user/:userid', getuserbyid);
+express.get('/api/v1/booking/:jobname/:confirmation/:completed', getBookingbyname);
+express.get('/api/v1/booking/:jobname/:confirmation', getpendBookingbyname);
+express.delete('/api/v1/booking/:bookid', deleteBook);
+
+async function getpendBookingbyname(request,response){
+    const data = await dbClient('booking').where('jobname',request.params.jobname).andWhere('confirmation',request.params.confirmation).select("*");
+     response.json(
+         data
+     )
+}
+
+async function getBookingbyname(request,response){
+    const data = await dbClient('booking').where('jobname',request.params.jobname).andWhere('confirmation',request.params.confirmation).andWhere('completed',request.params.completed).select("*");
+     response.json(
+         data
+     )
+}
+
 
 async function getuserbyid(request,response){
     const data = await dbClient('users').where('userid',request.params.userid).select("*");
      response.json(
          data
      )
-     console.log(data)
 }
 
 async function getBooked(request,response){
     console.log(request.params.userid)
-    const data = await dbClient('booking').where('userid',request.params.userid).select("*");
+    const data = await dbClient('booking').where('userid',request.params.userid).andWhere('confirmation',request.params.confirmation).select("*");
      response.json(
          data
      )
-     console.log(data)
+}
+
+async function deleteBook(request,response){
+    console.log(request.params.bookid)
+    const data = await dbClient('booking').where('bookid',request.params.bookid).del("*");
+     response.json(
+         data
+     )
 }
 
 express.listen(5000,'localhost',()=>{

@@ -16,13 +16,13 @@ async function authUser(email){
 }
 }
 
-async function deleteUser(data){
+async function deleteUser(data,userid){
   try{
     const del = await fetchUser.delUser({
       table: 'users',
-      where: data.email,
+      where: userid,
       payload:{
-        email:data.email
+        userid:data.userid
       }
     });
   return del;
@@ -32,13 +32,12 @@ async function deleteUser(data){
 }
 
 
-  async function updateUser(data){
+  async function updateUser(data,userid){
     try{
     const update = await fetchUser.uptUser({
     table: 'users',
-    where : data.userid,
+    where : userid,
     payload:{
-      userid:data.userid,
       name:data.name, 
       username:data.username,      
       password:data.password,

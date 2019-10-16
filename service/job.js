@@ -4,11 +4,11 @@ const express= new Express();
 const bodyParser = require('body-parser');
 express.use(bodyParser.json());
 
-async function deleteJob(data){
+async function deleteJob(data,jobid){
   try{
     const del = await fetchJob.delJob({
       table:'jobs',
-      where:(data.jobid)
+      where:jobid
     });
     return del;
   }catch(error){

@@ -42,11 +42,7 @@ async function authUser(request, response, next) {
 }
 
 async function  getUser(request,response){
-
-    console.log("hit user");
-   
         const result=await userService.getUser();
-        console.log(result)
         response.json(
             result
         )
@@ -55,11 +51,13 @@ async function  getUser(request,response){
 
 
 async function  deleteUser(request,response){
+    const userid = request.body.userid;
  const data={
-        email:request.body.email
+        userid:request.body.userid
     }
+    console.log(userid);
     try{
-        const result=await userService.deleteUser(data);
+        const result=await userService.deleteUser(data,userid);
         response.json({
             status:'success',
             message: 'success',
@@ -83,7 +81,6 @@ async function updateUser(request,response){
     const address = request.body.address;
     const hashedPassword=bcrypt.hashSync(password,10);
     const data = {
-        userid:userid,
         name:name,
         username:username,
         password:hashedPassword,
@@ -92,7 +89,7 @@ async function updateUser(request,response){
         address:address,
        }
     try{
-        const result=await userService.updateUser(data);
+        const result=await userService.updateUser(data,userid);
         response.json({
             status:'success',
             message:"success",
@@ -106,8 +103,6 @@ async function updateUser(request,response){
 }
 
 async function createUser(request,response){
-    console.log('hit');
-    console.log(request.body.name);
     const userid = request.body.userid;
     const name = request.body.name;
     const username = request.body.username;

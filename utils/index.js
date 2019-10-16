@@ -70,7 +70,7 @@ async function delUser({
 }) {
   const data = await dbClient
     .table(table)
-    .where('email', where)
+    .where('userid', where)
     .del()
   return data;
 }
@@ -87,6 +87,18 @@ async function uptUser({
   return data;
 }
 
+async function uptBook({
+  table,
+  where,
+  payload
+}) {
+  const data = await dbClient
+    .table(table)
+    .where('bookid', where)
+    .update(payload)
+  return data;
+}
+
 async function fetchUser({
   table,
   payload
@@ -97,6 +109,25 @@ async function fetchUser({
   return data;
 }
 
+async function fetchFeedback({
+  table,
+  payload
+}) {
+  const data = await dbClient
+    .table(table)
+    .select(payload)
+  return data;
+}
+
+async function savefeedback({
+  table,
+  payload
+}) {
+  const data = await dbClient
+    .table(table)
+    .insert(payload)
+  return;
+}
 async function saveAdmin({
   table,
   payload
@@ -163,17 +194,6 @@ async function savebook({
 
   return data;
 }
-// async function fetchUserBook({
-//   table,
-//   where,
-//   payload
-// }) {
-//   const data = await dbClient
-//     .table(table)
-//     .where('userid', where)
-//     .select(payload)
-//   return data;
-// }
 
 module.exports = {
   saveUser: saveUser,
@@ -189,5 +209,7 @@ module.exports = {
   uptJob: uptJob,
   delJob: delJob,
   savebook:savebook,
-  // fetchUserBook:fetchUserBook
+  uptBook:uptBook,
+  fetchFeedback:fetchFeedback,
+  savefeedback:savefeedback
 }

@@ -5,18 +5,21 @@ const bodyParser = require('body-parser');
 express.use(bodyParser.json());
 
 async function createBooking(request,response){
-    console.log(request.body.jobname);
     const jobname=request.body.jobname;
     const jobtime=request.body.jobtime;
     const jobdate=request.body.jobdate;
     const jobproblem=request.body.jobproblem;
     const userid=request.body.userid;
+    const confirmation = request.body.confirmation;
+    const completed=request.body.completed;
     const data = {
         jobname:jobname,
+        confirmation:confirmation,
         jobtime:jobtime,
         jobdate:jobdate,
         jobproblem:jobproblem,
         userid:userid,
+        completed:completed
     }
     try{
         const result=await bookingService.createBooking(data);
@@ -34,40 +37,49 @@ async function createBooking(request,response){
 }
 
 
-async function getBooking(request,response){
-
-    console.log("hit user");
-   
+async function getBooking(request,response){   
         const result=await bookingService.getBooking();
-        console.log(result)
         response.json(
             result
         )
 }
+async function updateBooking(request,response){
+    const bookid = request.body.bookid;
+    const jobname = request.body.jobname;
+    const jobtime=request.body.jobtime;
+    const jobdate=request.body.jobdate;
+    const jobproblem=request.body.jobproblem;
+    const userid=request.body.userid;
+    const confirmation=request.body.confirmation;
+    const completed=request.body.completed;
+    const data = {
+        bookid:bookid,
+        jobname:jobname,
+        jobtime:jobtime,
+        jobdate:jobdate,
+        jobproblem:jobproblem,
+        userid:userid,
+        confirmation:confirmation,
+        completed:completed,
+       }
+    try{
+        const result=await bookingService.updateBook(data,bookid);
+        response.json({
+            status:'success',
+            message:"Success",
+            data:data
+        })
+    }catch(error){
+        response.json({
+            message:'error'
+        })
+    }
+}
 
-// async function getBooked(request,response){
-//     const userid= request.body.userid;
-//     console.log(userid);
-//     const data = {
-//         userid:userid
-//     }
-//     try{
-//     const result=await bookingService.getBooked();
-//     response.json({
-//         status:'success',
-//         message:"success",
-//         data:data
-//     })
-// }catch(error){
-//     response.json({
-//         message:'error'
-//     })
-// }
-// }
 
 
 module.exports ={
     createBooking:createBooking,
     getBooking:getBooking,
-    // getBooked:getBooked,
+    updateBooking:updateBooking,
 }

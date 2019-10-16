@@ -12,11 +12,7 @@ const config = require('../knexfile');
 const dbClient = knex(config);
 
 async function  getJob(request,response){
-
-    console.log("hit");
-   
         const result=await jobService.getJob();
-        console.log(result)
         response.json(
             result
         )
@@ -29,7 +25,7 @@ async function deleteJob(request,response){
         jobid:jobid
     }
     try{
-        const result=await jobService.deleteJob(data);
+        const result=await jobService.deleteJob(data,jobid);
         response.json({
             status:'success',
             message: 'success',
