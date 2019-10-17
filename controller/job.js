@@ -11,13 +11,6 @@ const knex = require('knex');
 const config = require('../knexfile');
 const dbClient = knex(config);
 
-async function  getJob(request,response){
-        const result=await jobService.getJob();
-        response.json(
-            result
-        )
-}
-
 async function deleteJob(request,response){
     const jobid = request.body.jobid;
     console.log(jobid);
@@ -44,15 +37,17 @@ async function updateJob(request,response){
     const jobdetail = request.body.jobdetail;
     const minimumcharge = request.body.minimumcharge;
     const jobimage = request.body.jobimage;
+    const availability = request.body.availability;
     const data = {
         jobid:jobid,
         jobname:jobname,
         jobdetail:jobdetail,
         minimumcharge:minimumcharge,
-        jobimage:jobimage
+        jobimage:jobimage,
+        availability:availability,
     }
     try{
-        const result=await jobService.updateJob(data);
+        const result=await jobService.updateJob(data,jobid);
         response.json({
             status:'success',
             message:"success",
@@ -70,11 +65,13 @@ async function createJob(request,response){
     const jobdetail = request.body.jobdetail;
     const minimumcharge = request.body.minimumcharge;
     const jobimage = request.body.jobimage;
+    const availability = request.body.availability;
     const data = {
         jobname:jobname,
         jobdetail:jobdetail,
         minimumcharge:minimumcharge,
-        jobimage:jobimage
+        jobimage:jobimage,
+        availability:availability,
     }    
     try{
         const result=await jobService.createJob(data);
@@ -91,7 +88,6 @@ async function createJob(request,response){
 }
 module.exports ={
     createJob:createJob,
-    getJob:getJob,
     updateJob:updateJob,
     deleteJob:deleteJob
 }

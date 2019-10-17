@@ -52,6 +52,7 @@ async function updateBooking(request,response){
     const userid=request.body.userid;
     const confirmation=request.body.confirmation;
     const completed=request.body.completed;
+    const feedback=request.body.feedback;
     const data = {
         bookid:bookid,
         jobname:jobname,
@@ -61,6 +62,7 @@ async function updateBooking(request,response){
         userid:userid,
         confirmation:confirmation,
         completed:completed,
+        feedback:feedback,
        }
     try{
         const result=await bookingService.updateBook(data,bookid);

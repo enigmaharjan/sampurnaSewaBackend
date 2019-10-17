@@ -23,8 +23,6 @@ express.use(Express.static(path.join(__dirname, 'public')));
 
 express.post('/api/v1/feedback', feedbackController.createFeedback);
 express.get('/api/v1/feedback', feedbackController.getFeedback);
-
-
 express.delete('/api/v1/user', userController.deleteUser);
 express.put('/api/v1/user', userController.updateUser);
 express.get('/api/v1/user', userController.getUser);
@@ -33,7 +31,8 @@ express.post('/api/v1/authuser', userController.authUser);
 
 express.delete('/api/v1/job', jobController.deleteJob);
 express.put('/api/v1/job', jobController.updateJob);
-express.get('/api/v1/job', jobController.getJob);
+express.get('/api/v1/job', getJob);
+express.get('/api/v1/jobs', getallJob);
 express.post('/api/v1/job', jobController.createJob);
 
 express.get('/api/v1/admin', adminController.getAdmin);
@@ -43,6 +42,8 @@ express.post('/api/v1/authadmin', adminController.authAdmin);
 express.post('/api/v1/booking', bookingController.createBooking);
 express.get('/api/v1/booking', bookingController.getBooking);
 express.put('/api/v1/booking', bookingController.updateBooking);
+express.get('/api/v1/bookings', feedback);
+
 
 express.get('/api/v1/booked/:userid/:confirmation', getBooked);
 express.get('/api/v1/user/:userid', getuserbyid);
@@ -50,6 +51,25 @@ express.get('/api/v1/booking/:jobname/:confirmation/:completed', getBookingbynam
 express.get('/api/v1/booking/:jobname/:confirmation', getpendBookingbyname);
 express.delete('/api/v1/booking/:bookid', deleteBook);
 
+async function feedback(request,response){
+    const data = await dbClient('booking').whereNot('feedback',"null").select("jobname","userid","feedback");
+     response.json(
+         data
+     )
+}
+
+async function getJob(request,response){
+    const data = await dbClient('jobs').where('availability',"Available").select('*');
+     response.json(
+         data
+     )
+}
+async function getallJob(request,response){
+    const data = await dbClient('jobs').select('*');
+     response.json(
+         data
+     )
+}
 async function getpendBookingbyname(request,response){
     const data = await dbClient('booking').where('jobname',request.params.jobname).andWhere('confirmation',request.params.confirmation).select("*");
      response.json(

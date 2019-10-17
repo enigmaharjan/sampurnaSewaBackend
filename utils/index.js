@@ -174,16 +174,6 @@ async function uptJob({
   return data;
 }
 
-async function fetchJob({
-  table,
-  payload
-}) {
-  const data = await dbClient
-    .table(table)
-    .select(payload)
-  return data;
-}
-
 async function savebook({
   table,
   payload
@@ -205,7 +195,6 @@ module.exports = {
   uptUser: uptUser,
   delUser: delUser,
   saveJob: saveJob,
-  fetchJob: fetchJob,
   uptJob: uptJob,
   delJob: delJob,
   savebook:savebook,

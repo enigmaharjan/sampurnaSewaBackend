@@ -46,6 +46,7 @@ async function getBooking(){
       userid:data.userid,
       confirmation:data.confirmation,
       completed:data.completed,
+      feedback:data.feedback,
   }
   });
     return update;

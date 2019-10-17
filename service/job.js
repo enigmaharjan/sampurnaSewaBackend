@@ -17,33 +17,23 @@ async function deleteJob(data,jobid){
 }
 
 
-async function updateJob(data){
+async function updateJob(data,jobid){
   try{
     const upt = await fetchJob.uptJob({
       table: 'jobs',
-      where : data.jobid,
+      where : jobid,
       payload:{
-        jobid:jobid,
-        jobname:jobname,
-        jobdetail:jobdetail,
-        minimumcharge:minimumcharge,
-        jobimage:jobimage
+        jobid:data.jobid,
+        jobname:data.jobname,
+        jobdetail:data.jobdetail,
+        minimumcharge:data.minimumcharge,
+        jobimage:data.jobimage,
+        availability:data.availability,
         }
     });
     return upt;
   }catch(error) {
     throw new Error(error)
-  }
-}
-async function getJob(){
-  try {
-    const job = await fetchJob.fetchJob({
-      table: 'jobs',
-      payload:'*'
-    });
-    return job;
-  } catch(error) {
-    throw new Error(error);
   }
 }
 
@@ -55,7 +45,8 @@ async function createJob(data) {
         jobname:data.jobname,
         jobdetail:data.jobdetail,
         minimumcharge:data.minimumcharge,
-        jobimage:data.jobimage
+        jobimage:data.jobimage,
+        availability:data.availability,
       }
       });
       return result;
@@ -67,7 +58,6 @@ async function createJob(data) {
   
   module.exports ={
     createJob: createJob,
-    getJob:getJob,
     updateJob:updateJob,
     deleteJob:deleteJob
 }
