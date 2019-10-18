@@ -79,6 +79,7 @@ async function updateUser(request,response){
     const email = request.body.email;
     const phone = request.body.phone;
     const address = request.body.address;
+    const imagename = request.body.imagename;
     const hashedPassword=bcrypt.hashSync(password,10);
     const data = {
         name:name,
@@ -87,6 +88,7 @@ async function updateUser(request,response){
         email:email,
         phone:phone,
         address:address,
+        imagename:imagename,
        }
     try{
         const result=await userService.updateUser(data,userid);

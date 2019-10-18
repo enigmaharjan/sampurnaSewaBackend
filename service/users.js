@@ -43,7 +43,8 @@ async function deleteUser(data,userid){
       password:data.password,
       email:data.email,
       address:data.address,
-      phone:data.phone,    
+      phone:data.phone,
+      imagename:data.imagename,    
   }
   });
     return update;

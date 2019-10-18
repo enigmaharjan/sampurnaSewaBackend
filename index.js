@@ -1,6 +1,7 @@
 const Express = require('express');
 const express= new Express();
 const bodyParser = require('body-parser');
+var uploadRouter = require('./upload');
 // connection factory
 const knex = require('knex');
 const pg = require ('pg');
@@ -20,6 +21,7 @@ const jwt=require('jsonwebtoken');
 const SECRET_KEY = 10;
 // var uploadRouter = require('./upload.js');
 express.use(Express.static(path.join(__dirname, 'public')));
+express.use('/upload', uploadRouter);       //Route for uploading image
 
 express.post('/api/v1/feedback', feedbackController.createFeedback);
 express.get('/api/v1/feedback', feedbackController.getFeedback);
