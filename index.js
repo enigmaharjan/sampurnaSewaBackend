@@ -52,6 +52,15 @@ express.get('/api/v1/user/:userid', getuserbyid);
 express.get('/api/v1/booking/:jobname/:confirmation/:completed', getBookingbyname);
 express.get('/api/v1/booking/:jobname/:confirmation', getpendBookingbyname);
 express.delete('/api/v1/booking/:bookid', deleteBook);
+express.get('/api/v1/booked/:userid/:confirmation/:completed', getBooked1);
+
+async function getBooked1(request,response){
+    console.log(request.params.userid)
+    const data = await dbClient('booking').where('userid',request.params.userid).andWhere('confirmation',request.params.confirmation).andWhere('completed',request.params.completed).select("*");
+     response.json(
+         data
+     )
+}
 
 async function feedback(request,response){
     const data = await dbClient('booking').whereNot('feedback',"null").select("jobname","userid","feedback");
@@ -110,6 +119,6 @@ async function deleteBook(request,response){
      )
 }
 
-express.listen(5000,'localhost',()=>{
+express.listen(4000,'localhost',()=>{
     console.log("running on port 5000")
 })
