@@ -4,11 +4,11 @@ exports.up = async function(knex, Promise) {
   await knex.schema.hasTable('admin');
   return await knex.schema.createTable('admin', tbl =>{
       tbl.increments();
-      tbl.string('username');
+      tbl.string('email');
       tbl.string('password');
   }).then(function(){
       return knex('admin').insert({
-          'username':'admin@admin.com',
+          'email':'admin@admin.com',
           'password':password,
       })
   })

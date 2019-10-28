@@ -111,6 +111,7 @@ async function getBooked(request,response){
      )
 }
 
+
 async function deleteBook(request,response){
     console.log(request.params.bookid)
     const data = await dbClient('booking').where('bookid',request.params.bookid).del("*");
@@ -119,6 +120,6 @@ async function deleteBook(request,response){
      )
 }
 
-express.listen(4000,'localhost',()=>{
-    console.log("running on port 5000")
+express.listen(4000,'192.168.1.79',()=>{
+    console.log("running on port 4000")
 })
