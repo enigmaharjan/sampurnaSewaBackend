@@ -20,7 +20,7 @@ async function authAdmin(email){
 
 async function getAdmin(){
     try {
-      const admin = await fetchAdmin.getFromDatabase({
+      const admin = await fetchAdmin.fetchAdmin({
         table: 'admin',
         payload:'*'
       });
@@ -32,7 +32,7 @@ async function getAdmin(){
 
 async function createAdmin(data) {
     try {
-      const result= await fetchAdmin.saveToDatabase({
+      const result= await fetchAdmin.saveAdmin({
         table: 'admin',
         payload:{
         email:data.email,

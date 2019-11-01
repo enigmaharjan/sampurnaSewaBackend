@@ -6,10 +6,9 @@ express.use(bodyParser.json());
 
 async function deleteJob(data,jobid){
   try{
-    const del = await fetchJob.deleteDatafromDatabase({
+    const del = await fetchJob.delJob({
       table:'jobs',
-      where:jobid,
-      column:'jobid'
+      where:jobid
     });
     return del;
   }catch(error){
@@ -20,10 +19,9 @@ async function deleteJob(data,jobid){
 
 async function updateJob(data,jobid){
   try{
-    const upt = await fetchJob.updateToDatabse({
+    const upt = await fetchJob.uptJob({
       table: 'jobs',
       where : jobid,
-      column : 'jobid',
       payload:{
         jobid:data.jobid,
         jobname:data.jobname,
@@ -41,7 +39,7 @@ async function updateJob(data,jobid){
 
 async function createJob(data) {
     try {
-      const result= await fetchJob.saveToDatabase({
+      const result= await fetchJob.saveJob({
         table: 'jobs',
         payload:{
         jobname:data.jobname,

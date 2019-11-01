@@ -3,7 +3,7 @@ const fetchBooking = require('../utils/index');
 
 async function createBooking(data){
     try{
-        const result= await fetchBooking.saveToDatabase({
+        const result= await fetchBooking.savebook({
     table: 'booking',
     payload:{
         jobname:data.jobname,
@@ -23,7 +23,7 @@ async function createBooking(data){
 
 async function getBooking(){
     try {
-      const user = await fetchBooking.getFromDatabase({
+      const user = await fetchBooking.fetchUser({
         table: 'booking',
         payload:'*',
       });
@@ -34,10 +34,9 @@ async function getBooking(){
   }
   async function updateBook(data,bookid){
     try{
-    const update = await fetchBooking.updateToDatabse({
+    const update = await fetchBooking.uptBook({
     table: 'booking',
     where : bookid,
-    column : 'book_id',
     payload:{
       bookid:data.bookid,
       jobname:data.jobname,

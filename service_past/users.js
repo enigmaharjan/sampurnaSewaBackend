@@ -18,10 +18,9 @@ async function authUser(email){
 
 async function deleteUser(data,userid){
   try{
-    const del = await fetchUser.deleteDatafromDatabase({
+    const del = await fetchUser.delUser({
       table: 'users',
       where: userid,
-      column: 'userid',
       payload:{
         userid:data.userid
       }
@@ -35,10 +34,9 @@ async function deleteUser(data,userid){
 
   async function updateUser(data,userid){
     try{
-    const update = await fetchUser.updateToDatabse({
+    const update = await fetchUser.uptUser({
     table: 'users',
     where : userid,
-    column: 'userid',
     payload:{
       name:data.name, 
       username:data.username,      
@@ -56,7 +54,7 @@ async function deleteUser(data,userid){
 }
 async function getUser(){
   try {
-    const user = await fetchUser.getFromDatabase({
+    const user = await fetchUser.fetchUser({
       table: 'users',
       payload:'*'
     });
@@ -68,7 +66,7 @@ async function getUser(){
 
 async function createUser(data) {
     try {
-      const result= await fetchUser.saveToDatabase({
+      const result= await fetchUser.saveUser({
         table: 'users',
         payload:{
         name:data.name,

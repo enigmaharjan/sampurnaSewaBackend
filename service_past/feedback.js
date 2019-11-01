@@ -2,7 +2,7 @@ const fetchFeedback = require('../utils/index');
 
 async function createFeedback(data){
     try{
-        const result= await fetchFeedback.saveToDatabase({
+        const result= await fetchFeedback.savefeedback({
     table: 'feedback',
     payload:{
         feedback:data.feedback
@@ -16,7 +16,7 @@ async function createFeedback(data){
 
 async function getFeedback(){
     try {
-      const user = await fetchFeedback.getFromDatabase({
+      const user = await fetchFeedback.fetchFeedback({
         table: 'feedback',
         payload:'*',
       });
