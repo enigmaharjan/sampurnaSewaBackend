@@ -24,11 +24,21 @@ async function saveToDatabase({
     table,
     payload
 }){
+  try {
+    if(Object.keys(payload).length > 0){
     const data = await dbClient
     .table(table)
     .insert(payload)
 
-  return "hello";
+  return 'success';
+    }
+    else{
+      return 'failed';
+    }
+  }
+  catch(err){
+    return 'failed';
+  }
 }
 
 async function getFromDatabase({

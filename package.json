@@ -5,7 +5,7 @@
   "main": "\u001b[A\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D: Agile",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test",
     "migrate:make": "knex migrate:make --knexfile ./knexfile.js",
     "migrate:run": "knex migrate:latest --knexfile ./knexfile.js"
   },
