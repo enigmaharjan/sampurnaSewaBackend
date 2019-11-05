@@ -4,7 +4,7 @@ exports.up =async function(knex, Promise) {
         table.increments('userid');
         table.string('name');
         table.string('username');
-        table.string('email');
+        table.string('email').unique();
         table.string('password');
         table.string('address');
         table.string('phone');

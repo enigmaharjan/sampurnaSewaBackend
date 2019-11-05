@@ -127,11 +127,18 @@ async function createUser(request,response){
     }    
     try{
         const result=await userService.createUser(data);
+        console.log(result)
+        if (result=="failed"){
+            response.json({
+                message:'Email id already registered'
+            })
+        }
+        else{
         response.json({
             status:'success',
             message:'Successfully Registered',
             data:data
-        })
+        })}
     }catch(error){
         response.json({
             message:'Email id already registered'
