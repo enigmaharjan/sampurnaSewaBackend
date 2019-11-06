@@ -37,7 +37,7 @@ async function getBooking(){
     const update = await fetchBooking.updateToDatabse({
     table: 'booking',
     where : bookid,
-    column : 'book_id',
+    column : 'bookid',
     payload:{
       bookid:data.bookid,
       jobname:data.jobname,
